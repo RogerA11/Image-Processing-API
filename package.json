@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "prettier": "prettier --config .prettierrc 'src/*.ts' --write ",
-    "lint": "eslint 'src/*.ts'",
+    "prettier": "prettier --config .prettierrc src/main.ts --write ",
+    "lint": "eslint src/main.ts",
     "jasmine": "jasmine",
     "build": "npx tsc",
     "test": "npm run build && npm run jasmine",
