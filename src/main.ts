@@ -1,20 +1,15 @@
 import express from "express";
-import logger from "./utilities/logger"
+import routes from "./routes/index";
 
 const app = express();
 const port = 3000;
-const api: string = "/test";
 
-// create an api
-app.get(api, logger, (req, res) => {
-  // send response
-  res.send("API test successful!");
-});
+// mount router object
+app.use(routes);
 
 // start the Express server
 app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
 });
-
 
 export default app;
