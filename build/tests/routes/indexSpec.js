@@ -42,12 +42,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var supertest_1 = __importDefault(require("supertest"));
 var main_1 = __importDefault(require("../../main"));
 var req = (0, supertest_1.default)(main_1.default);
-describe('Testing endpoint responses', function () {
-    it('return 20 status for app root endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
+describe("Testing endpoint responses", function () {
+    it("return 20 status for app root endpoint", function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get('/')];
+                case 0: return [4 /*yield*/, req.get("/")];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(200);
@@ -55,63 +55,63 @@ describe('Testing endpoint responses', function () {
             }
         });
     }); });
-    it('return 400 status for not including other parameters', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("return 400 status for not including other parameters", function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get('/resize?filename=icelandwaterfall')];
+                case 0: return [4 /*yield*/, req.get("/resize?filename=icelandwaterfall")];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(400);
-                    expect(res.body.error).toEqual('Filename, width, and height are required.');
+                    expect(res.body.error).toEqual("Filename, width, and height are required.");
                     return [2 /*return*/];
             }
         });
     }); });
-    it('return 400 status for not including parameters', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("return 400 status for not including parameters", function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get('/resize')];
+                case 0: return [4 /*yield*/, req.get("/resize")];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(400);
-                    expect(res.body.error).toEqual('Filename, width, and height are required.');
+                    expect(res.body.error).toEqual("Filename, width, and height are required.");
                     return [2 /*return*/];
             }
         });
     }); });
-    it('return 400 status if either width or height parameters are negative', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("return 400 status if either width or height parameters are negative", function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get('/resize?filename=icelandwaterfall&width=-199&height=199')];
+                case 0: return [4 /*yield*/, req.get("/resize?filename=icelandwaterfall&width=-199&height=199")];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(400);
-                    expect(res.body.error).toEqual('Input value can not be negative');
+                    expect(res.body.error).toEqual("Input value can not be negative");
                     return [2 /*return*/];
             }
         });
     }); });
-    it('return 400 status if image does not exist in directory', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("return 400 status if image does not exist in directory", function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get('/resize?filename=landfall&width=199&height=199')];
+                case 0: return [4 /*yield*/, req.get("/resize?filename=landfall&width=199&height=199")];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(400);
-                    expect(res.body.error).toEqual('Image does not exist.');
+                    expect(res.body.error).toEqual("Image does not exist.");
                     return [2 /*return*/];
             }
         });
     }); });
-    it('return 200 status with parameters included', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("return 200 status with parameters included", function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get('/resize?filename=icelandwaterfall&width=199&height=199')];
+                case 0: return [4 /*yield*/, req.get("/resize?filename=icelandwaterfall&width=199&height=199")];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(200);

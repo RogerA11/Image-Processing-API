@@ -44,16 +44,16 @@ var sharp_1 = __importDefault(require("sharp"));
 var path_1 = __importDefault(require("path"));
 // array of allowed image names
 var imageNames = [
-    'encenadaport',
-    'fjord',
-    'icelandwaterfall',
-    'palmtunnel',
-    'santamonica',
+    "encenadaport",
+    "fjord",
+    "icelandwaterfall",
+    "palmtunnel",
+    "santamonica",
 ];
 // router object for the resizeImages route
 var resizeImages = (0, express_1.Router)();
 // get method for the resizeImages route
-resizeImages.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+resizeImages.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, filename, width, height, searchName, thumbLocation, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
@@ -61,18 +61,20 @@ resizeImages.get('/', function (req, res) { return __awaiter(void 0, void 0, voi
                 _a = req.query, filename = _a.filename, width = _a.width, height = _a.height;
                 // return an error if any of the required parameters are missing
                 if (!filename || !width || !height) {
-                    return [2 /*return*/, res.status(400).json({ error: 'Filename, width, and height are required.' })];
+                    return [2 /*return*/, res
+                            .status(400)
+                            .json({ error: "Filename, width, and height are required." })];
                 }
                 // return an error if width or height are negative
                 if (parseInt(width) < 0 || parseInt(height) < 0) {
-                    return [2 /*return*/, res.status(400).json({ error: 'Input value can not be negative' })];
+                    return [2 /*return*/, res.status(400).json({ error: "Input value can not be negative" })];
                 }
                 // return an error if the provided filename is not in the image names array
                 if (!imageNames.includes(filename)) {
-                    return [2 /*return*/, res.status(400).json({ error: 'Image does not exist.' })];
+                    return [2 /*return*/, res.status(400).json({ error: "Image does not exist." })];
                 }
                 searchName = "".concat(filename, "_").concat(width, "_").concat(height, "_thumb");
-                thumbLocation = path_1.default.resolve('./') + "/assets/thumb/".concat(searchName, ".jpg");
+                thumbLocation = path_1.default.resolve("./") + "/assets/thumb/".concat(searchName, ".jpg");
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
@@ -90,7 +92,7 @@ resizeImages.get('/', function (req, res) { return __awaiter(void 0, void 0, voi
                 error_1 = _b.sent();
                 console.error(error_1);
                 // return an error if there was an issue resizing the image
-                res.status(500).send('Error resizing image.');
+                res.status(500).send("Error resizing image.");
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }

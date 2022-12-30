@@ -28,7 +28,7 @@ describe("Testing endpoint responses", (): void => {
 
   it("return 400 status if either width or height parameters are negative", async (): Promise<void> => {
     const res: supertest.Response = await req.get(
-      "/resize?filename=icelandwaterfall&width=-199&height=199"
+      "/resize?filename=icelandwaterfall&width=-200&height=399"
     );
 
     expect(res.status).toBe(400);
@@ -37,7 +37,7 @@ describe("Testing endpoint responses", (): void => {
 
   it("return 400 status if image does not exist in directory", async (): Promise<void> => {
     const res: supertest.Response = await req.get(
-      "/resize?filename=landfall&width=199&height=199"
+      "/resize?filename=landfall&width=222&height=333"
     );
 
     expect(res.status).toBe(400);
@@ -46,7 +46,7 @@ describe("Testing endpoint responses", (): void => {
 
   it("return 200 status with parameters included", async (): Promise<void> => {
     const res: supertest.Response = await req.get(
-      "/resize?filename=icelandwaterfall&width=199&height=199"
+      "/resize?filename=icelandwaterfall&width=111&height=222"
     );
 
     expect(res.status).toBe(200);
