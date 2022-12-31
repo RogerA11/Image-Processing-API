@@ -85,7 +85,7 @@ describe("Testing endpoint responses", function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get("/resize?filename=icelandwaterfall&width=-199&height=199")];
+                case 0: return [4 /*yield*/, req.get("/resize?filename=icelandwaterfall&width=-200&height=399")];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(400);
@@ -98,7 +98,7 @@ describe("Testing endpoint responses", function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get("/resize?filename=landfall&width=199&height=199")];
+                case 0: return [4 /*yield*/, req.get("/resize?filename=landfall&width=222&height=333")];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(400);
@@ -111,7 +111,7 @@ describe("Testing endpoint responses", function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get("/resize?filename=icelandwaterfall&width=199&height=199")];
+                case 0: return [4 /*yield*/, req.get("/resize?filename=icelandwaterfall&width=111&height=222")];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(200);
