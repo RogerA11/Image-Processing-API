@@ -99,10 +99,10 @@ Running script example:
 
    `npm run format`
 
+## Known Issues
 
+A list of known issues or limitations of the project.
 
+## Credits
 
-
-
-
-
+Credit any contributors or sources of inspiration for the project.
