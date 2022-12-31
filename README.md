@@ -77,7 +77,7 @@ Instructions for using the project.
 
    - Both width and height arguments can not be negative.
 
-4. Running the response in the browser should give you an output with the processed image like the one below:
+4. Running the request should result in a processed image output like the one below:
 
    ![fjord_255_300_thumb.jpg](assets/readme/readme_image.jpg)
 
