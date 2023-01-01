@@ -98,11 +98,3 @@ Running script example:
 2. Run the following command.
 
    `npm run format`
-
-## Known Issues
-
-A list of known issues or limitations of the project.
-
-## Credits
-
-Credit any contributors or sources of inspiration for the project.

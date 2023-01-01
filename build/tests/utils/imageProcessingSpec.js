@@ -39,18 +39,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var supertest_1 = __importDefault(require("supertest"));
-var main_1 = __importDefault(require("../main"));
-var req = (0, supertest_1.default)(main_1.default);
-describe("Testing root endpoint", function () {
-    it("return 200 status for root endpoint", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var res;
+var imageProcessing_1 = __importDefault(require("../../utils/imageProcessing"));
+var fileExist_1 = __importDefault(require("../../utils/fileExist"));
+var path_1 = __importDefault(require("path"));
+var fs_1 = __importDefault(require("fs"));
+describe("Testing image processing", function () {
+    it("should generate a resized file", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var filename, width, height, filePath, resizedImage;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get("/")];
+                case 0:
+                    filename = "santamonica";
+                    width = "444";
+                    height = "444";
+                    filePath = path_1.default.join(__dirname, "..", "..", "..", "assets", "thumb", "".concat(filename, "-").concat(width, "-").concat(height, ".jpg"));
+                    return [4 /*yield*/, (0, fileExist_1.default)(filename, width, height)];
                 case 1:
-                    res = _a.sent();
-                    expect(res.status).toBe(200);
+                    // delete file if it already exists
+                    if (_a.sent()) {
+                        fs_1.default.unlinkSync(filePath);
+                    }
+                    return [4 /*yield*/, (0, imageProcessing_1.default)(filename, width, height)];
+                case 2:
+                    resizedImage = _a.sent();
+                    // write resized image to file
+                    fs_1.default.writeFileSync(filePath, resizedImage);
+                    // test that file was created
+                    expect(fs_1.default.existsSync(filePath)).toBe(true);
                     return [2 /*return*/];
             }
         });

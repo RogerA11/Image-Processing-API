@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import resizeImages from "./api/resize";
+import serveImage from "./api/resize";
 import path from "path";
 
 // create router
@@ -11,7 +11,7 @@ routes.get("/", (req: Request, res: Response) => {
 });
 
 // mount resizeImages router
-routes.use("/resize", resizeImages);
+routes.use("/resize", serveImage);
 
 // export router
 export default routes;

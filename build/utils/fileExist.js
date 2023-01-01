@@ -39,20 +39,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var supertest_1 = __importDefault(require("supertest"));
-var main_1 = __importDefault(require("../main"));
-var req = (0, supertest_1.default)(main_1.default);
-describe("Testing root endpoint", function () {
-    it("return 200 status for root endpoint", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var res;
+var fs_1 = __importDefault(require("fs"));
+function fileExist(filename, width, height) {
+    return __awaiter(this, void 0, void 0, function () {
+        var filePath;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get("/")];
-                case 1:
-                    res = _a.sent();
-                    expect(res.status).toBe(200);
-                    return [2 /*return*/];
+            filePath = "/assets/thumb/".concat(filename, "-").concat(width, "-").concat(height, ".jpg");
+            try {
+                // check if the file exists
+                fs_1.default.accessSync(filePath);
+                return [2 /*return*/, true];
             }
+            catch (error) {
+                return [2 /*return*/, false];
+            }
+            return [2 /*return*/];
         });
-    }); });
-});
+    });
+}
+exports.default = fileExist;

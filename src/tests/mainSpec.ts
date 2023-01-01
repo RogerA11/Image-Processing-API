@@ -3,13 +3,10 @@ import app from "../main";
 
 const req: supertest.SuperTest<supertest.Test> = supertest(app);
 
-describe("Testing image processing", (): void => {
-  it("return 200 status for the resized image", async (): Promise<void> => {
-    const res: supertest.Response = await req
-      .get("/")
-      .query({ filename: "icelandwaterfall", width: "200", height: "250" });
+describe("Testing root endpoint", (): void => {
+  it("return 200 status for root endpoint", async (): Promise<void> => {
+    const res: supertest.Response = await req.get("/");
 
     expect(res.status).toBe(200);
-    expect(res.body).toBeDefined();
   });
 });

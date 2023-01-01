@@ -39,20 +39,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var supertest_1 = __importDefault(require("supertest"));
-var main_1 = __importDefault(require("../main"));
-var req = (0, supertest_1.default)(main_1.default);
-describe("Testing root endpoint", function () {
-    it("return 200 status for root endpoint", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var res;
+var sharp_1 = __importDefault(require("sharp"));
+var path_1 = __importDefault(require("path"));
+function processImage(filename, width, height) {
+    return __awaiter(this, void 0, void 0, function () {
+        var filePath, image, resizedImage, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get("/")];
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    filePath = path_1.default.resolve("./assets/images/", filename + ".jpg");
+                    image = (0, sharp_1.default)(filePath);
+                    return [4 /*yield*/, image
+                            .resize(parseInt(width, 10), parseInt(height, 10))
+                            .jpeg()
+                            .toBuffer()];
                 case 1:
-                    res = _a.sent();
-                    expect(res.status).toBe(200);
-                    return [2 /*return*/];
+                    resizedImage = _a.sent();
+                    // return resized image as a buffer
+                    return [2 /*return*/, resizedImage];
+                case 2:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    throw new Error("Error processing image.");
+                case 3: return [2 /*return*/];
             }
         });
-    }); });
-});
+    });
+}
+exports.default = processImage;

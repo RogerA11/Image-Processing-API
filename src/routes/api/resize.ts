@@ -1,25 +1,24 @@
 import { Request, Response, Router } from "express";
-import sharp from "sharp";
+import fs from "fs";
+import fileExist from "../../utils/fileExist";
+import imageNames from "../../utils/data";
+import processImage from "../../utils/imageProcessing";
 import path from "path";
 
-// array of allowed image names
-const imageNames = [
-  "encenadaport",
-  "fjord",
-  "icelandwaterfall",
-  "palmtunnel",
-  "santamonica",
-];
+// create router object
+const serveImage = Router();
 
-// router object for the resizeImages route
-const resizeImages = Router();
+// get method for serveImage
+serveImage.get("/", async (req: Request, res: Response) => {
+  // extract filename, width, and height query parameters
+  type params = {
+    filename: string;
+    width: string;
+    height: string;
+  };
+  const { filename, width, height } = req.query as unknown as params;
 
-// get method for the resizeImages route
-resizeImages.get("/", async (req: Request, res: Response) => {
-  // extract the filename, width, and height from the query parameters
-  const { filename, width, height } = req.query;
-
-  // return an error if any of the required parameters are missing
+  // return an error if any of the parameters are missing
   if (!filename || !width || !height) {
     return res
       .status(400)
@@ -36,18 +35,30 @@ resizeImages.get("/", async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Image does not exist." });
   }
 
-  // construct the name for the resized image file
-  const searchName = `${filename}_${width}_${height}_thumb`;
-  const thumbLocation = path.resolve("./") + `/assets/thumb/${searchName}.jpg`;
+  // construct the file path
+  const filePath = path.join(
+    __dirname,
+    "..",
+    "..",
+    "..",
+    "assets",
+    "thumb",
+    `${filename}-${width}-${height}.jpg`
+  );
 
   try {
-    // resize the image and save it to the thumbLocation file
-    await sharp(`./assets/images/${filename}.jpg`)
-      .resize(parseInt(width as string, 10), parseInt(height as string, 10))
-      .toFile(thumbLocation);
+    // check if the file exists
+    if (await fileExist(filename, width, height)) {
+      // serve the file if it exists
+      res.sendFile(filePath);
+    } else {
+      // resize the original image and save it to the thumb directory
+      const resizedImage = await processImage(filename, width, height);
+      fs.writeFileSync(filePath, resizedImage);
 
-    // send the resized image file to the client
-    res.sendFile(thumbLocation);
+      // serve the resized image
+      res.sendFile(filePath);
+    }
   } catch (error) {
     console.error(error);
 
@@ -56,4 +67,4 @@ resizeImages.get("/", async (req: Request, res: Response) => {
   }
 });
 
-export default resizeImages;
+export default serveImage;
