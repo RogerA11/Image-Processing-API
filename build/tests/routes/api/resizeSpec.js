@@ -43,11 +43,11 @@ var supertest_1 = __importDefault(require("supertest"));
 var main_1 = __importDefault(require("../../../main"));
 var req = (0, supertest_1.default)(main_1.default);
 describe("Testing endpoint responses", function () {
-    it("return 400 status for not including other parameters", function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("return 400 status for not including any parameters", function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get("/resize?filename=icelandwaterfall")];
+                case 0: return [4 /*yield*/, req.get("/resize")];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(400);
@@ -56,11 +56,11 @@ describe("Testing endpoint responses", function () {
             }
         });
     }); });
-    it("return 400 status for not including parameters", function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("return 400 status for not including other parameters", function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get("/resize")];
+                case 0: return [4 /*yield*/, req.get("/resize?filename=icelandwaterfall")];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(400);
