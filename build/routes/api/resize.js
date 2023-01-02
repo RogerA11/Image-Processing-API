@@ -49,19 +49,21 @@ var path_1 = __importDefault(require("path"));
 var serveImage = (0, express_1.Router)();
 // get method for serveImage
 serveImage.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, filename, width, height, filePath, resizedImage, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var filename, width, height, filePath, resizedImage, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _a = req.query, filename = _a.filename, width = _a.width, height = _a.height;
+                filename = req.query.filename;
+                width = Number(req.query.width);
+                height = Number(req.query.height);
                 // return an error if any of the parameters are missing
                 if (!filename || !width || !height) {
-                    return [2 /*return*/, res
-                            .status(400)
-                            .json({ error: "Filename, width, and height are required." })];
+                    return [2 /*return*/, res.status(400).json({
+                            error: "Parameters required with type [Filename: string, width: number (>0), height: number (>0)]",
+                        })];
                 }
                 // return an error if width or height are negative
-                if (parseInt(width) < 0 || parseInt(height) < 0) {
+                if (width < 0 || height < 0) {
                     return [2 /*return*/, res.status(400).json({ error: "Input value can not be negative" })];
                 }
                 // return an error if the provided filename is not in the image names array
@@ -69,25 +71,25 @@ serveImage.get("/", function (req, res) { return __awaiter(void 0, void 0, void 
                     return [2 /*return*/, res.status(400).json({ error: "Image does not exist." })];
                 }
                 filePath = path_1.default.join(__dirname, "..", "..", "..", "assets", "thumb", "".concat(filename, "-").concat(width, "-").concat(height, ".jpg"));
-                _b.label = 1;
+                _a.label = 1;
             case 1:
-                _b.trys.push([1, 6, , 7]);
+                _a.trys.push([1, 6, , 7]);
                 return [4 /*yield*/, (0, fileExist_1.default)(filename, width, height)];
             case 2:
-                if (!_b.sent()) return [3 /*break*/, 3];
+                if (!_a.sent()) return [3 /*break*/, 3];
                 // serve the file if it exists
                 res.sendFile(filePath);
                 return [3 /*break*/, 5];
             case 3: return [4 /*yield*/, (0, imageProcessing_1.default)(filename, width, height)];
             case 4:
-                resizedImage = _b.sent();
+                resizedImage = _a.sent();
                 fs_1.default.writeFileSync(filePath, resizedImage);
                 // serve the resized image
                 res.sendFile(filePath);
-                _b.label = 5;
+                _a.label = 5;
             case 5: return [3 /*break*/, 7];
             case 6:
-                error_1 = _b.sent();
+                error_1 = _a.sent();
                 console.error(error_1);
                 // return an error if there was an issue resizing the image
                 res.status(500).send("Error resizing image.");

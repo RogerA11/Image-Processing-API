@@ -51,7 +51,7 @@ describe("Testing endpoint responses", function () {
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(400);
-                    expect(res.body.error).toEqual("Filename, width, and height are required.");
+                    expect(res.body.error).toEqual("Parameters required with type [Filename: string, width: number (>0), height: number (>0)]");
                     return [2 /*return*/];
             }
         });
@@ -64,7 +64,7 @@ describe("Testing endpoint responses", function () {
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(400);
-                    expect(res.body.error).toEqual("Filename, width, and height are required.");
+                    expect(res.body.error).toEqual("Parameters required with type [Filename: string, width: number (>0), height: number (>0)]");
                     return [2 /*return*/];
             }
         });
@@ -78,6 +78,32 @@ describe("Testing endpoint responses", function () {
                     res = _a.sent();
                     expect(res.status).toBe(400);
                     expect(res.body.error).toEqual("Input value can not be negative");
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it("return 400 status if either width or height parameters are equal to 0", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, req.get("/resize?filename=icelandwaterfall&width=0&height=399")];
+                case 1:
+                    res = _a.sent();
+                    expect(res.status).toBe(400);
+                    expect(res.body.error).toEqual("Parameters required with type [Filename: string, width: number (>0), height: number (>0)]");
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it("return 400 status if either width or height parameters are strings", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, req.get("/resize?filename=icelandwaterfall&width=400ab&height=399")];
+                case 1:
+                    res = _a.sent();
+                    expect(res.status).toBe(400);
+                    expect(res.body.error).toEqual("Parameters required with type [Filename: string, width: number (>0), height: number (>0)]");
                     return [2 /*return*/];
             }
         });

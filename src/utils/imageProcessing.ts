@@ -3,8 +3,8 @@ import path from "path";
 
 async function processImage(
   filename: string,
-  width: string,
-  height: string
+  width: number,
+  height: number
 ): Promise<Buffer> {
   try {
     // resolve file path & open image with sharp
@@ -12,10 +12,7 @@ async function processImage(
     const image = sharp(filePath);
 
     // resize image and convert to jpeg
-    const resizedImage = await image
-      .resize(parseInt(width, 10), parseInt(height, 10))
-      .jpeg()
-      .toBuffer();
+    const resizedImage = await image.resize(width, height).jpeg().toBuffer();
 
     // return resized image as a buffer
     return resizedImage;

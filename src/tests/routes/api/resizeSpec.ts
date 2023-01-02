@@ -10,14 +10,18 @@ describe("Testing endpoint responses", (): void => {
     );
 
     expect(res.status).toBe(400);
-    expect(res.body.error).toEqual("Filename, width, and height are required.");
+    expect(res.body.error).toEqual(
+      "Parameters required with type [Filename: string, width: number (>0), height: number (>0)]"
+    );
   });
 
   it("return 400 status for not including parameters", async (): Promise<void> => {
     const res: supertest.Response = await req.get("/resize");
 
     expect(res.status).toBe(400);
-    expect(res.body.error).toEqual("Filename, width, and height are required.");
+    expect(res.body.error).toEqual(
+      "Parameters required with type [Filename: string, width: number (>0), height: number (>0)]"
+    );
   });
 
   it("return 400 status if either width or height parameters are negative", async (): Promise<void> => {
@@ -27,6 +31,28 @@ describe("Testing endpoint responses", (): void => {
 
     expect(res.status).toBe(400);
     expect(res.body.error).toEqual("Input value can not be negative");
+  });
+
+  it("return 400 status if either width or height parameters are equal to 0", async (): Promise<void> => {
+    const res: supertest.Response = await req.get(
+      "/resize?filename=icelandwaterfall&width=0&height=399"
+    );
+
+    expect(res.status).toBe(400);
+    expect(res.body.error).toEqual(
+      "Parameters required with type [Filename: string, width: number (>0), height: number (>0)]"
+    );
+  });
+
+  it("return 400 status if either width or height parameters are strings", async (): Promise<void> => {
+    const res: supertest.Response = await req.get(
+      "/resize?filename=icelandwaterfall&width=400ab&height=399"
+    );
+
+    expect(res.status).toBe(400);
+    expect(res.body.error).toEqual(
+      "Parameters required with type [Filename: string, width: number (>0), height: number (>0)]"
+    );
   });
 
   it("return 400 status if image does not exist in directory", async (): Promise<void> => {

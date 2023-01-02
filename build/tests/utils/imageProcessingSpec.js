@@ -50,8 +50,8 @@ describe("Testing image processing", function () {
             switch (_a.label) {
                 case 0:
                     filename = "santamonica";
-                    width = "444";
-                    height = "444";
+                    width = 444;
+                    height = 444;
                     filePath = path_1.default.join(__dirname, "..", "..", "..", "assets", "thumb", "".concat(filename, "-").concat(width, "-").concat(height, ".jpg"));
                     return [4 /*yield*/, (0, fileExist_1.default)(filename, width, height)];
                 case 1:

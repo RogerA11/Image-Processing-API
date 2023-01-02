@@ -2,8 +2,8 @@ import fs from "fs";
 
 async function fileExist(
   filename: string,
-  width: string,
-  height: string
+  width: number,
+  height: number
 ): Promise<boolean> {
   // construct the file path
   const filePath = `/assets/thumb/${filename}-${width}-${height}.jpg`;

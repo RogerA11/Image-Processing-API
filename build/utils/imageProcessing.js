@@ -50,10 +50,7 @@ function processImage(filename, width, height) {
                     _a.trys.push([0, 2, , 3]);
                     filePath = path_1.default.resolve("./assets/images/", filename + ".jpg");
                     image = (0, sharp_1.default)(filePath);
-                    return [4 /*yield*/, image
-                            .resize(parseInt(width, 10), parseInt(height, 10))
-                            .jpeg()
-                            .toBuffer()];
+                    return [4 /*yield*/, image.resize(width, height).jpeg().toBuffer()];
                 case 1:
                     resizedImage = _a.sent();
                     // return resized image as a buffer

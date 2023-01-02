@@ -11,22 +11,20 @@ const serveImage = Router();
 // get method for serveImage
 serveImage.get("/", async (req: Request, res: Response) => {
   // extract filename, width, and height query parameters
-  type params = {
-    filename: string;
-    width: string;
-    height: string;
-  };
-  const { filename, width, height } = req.query as unknown as params;
+  const filename = req.query.filename as string;
+  const width = Number(req.query.width);
+  const height = Number(req.query.height);
 
   // return an error if any of the parameters are missing
   if (!filename || !width || !height) {
-    return res
-      .status(400)
-      .json({ error: "Filename, width, and height are required." });
+    return res.status(400).json({
+      error:
+        "Parameters required with type [Filename: string, width: number (>0), height: number (>0)]",
+    });
   }
 
   // return an error if width or height are negative
-  if (parseInt(width as string) < 0 || parseInt(height as string) < 0) {
+  if (width < 0 || height < 0) {
     return res.status(400).json({ error: "Input value can not be negative" });
   }
 

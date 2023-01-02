@@ -5,9 +5,9 @@ import fs from "fs";
 
 describe("Testing image processing", (): void => {
   it("should generate a resized file", async (): Promise<void> => {
-    const filename = "santamonica";
-    const width = "444";
-    const height = "444";
+    const filename = "santamonica" as string;
+    const width = 444 as number;
+    const height = 444 as number;
 
     // construct the file path
     const filePath = path.join(
